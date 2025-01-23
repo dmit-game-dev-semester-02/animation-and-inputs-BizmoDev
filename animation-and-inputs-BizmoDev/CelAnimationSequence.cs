@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace day03_animation;
+namespace assignment01_animation_and_inputs;
     
 /// <summary>
 /// Represents a cel animated texture.

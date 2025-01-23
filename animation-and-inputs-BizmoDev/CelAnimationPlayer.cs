@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace day03_animation;
+namespace assignment01_animation_and_inputs;
     
 /// <summary>
 /// Controls playback of a CelAnimationSequence.
