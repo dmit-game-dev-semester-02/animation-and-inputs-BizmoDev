@@ -12,7 +12,7 @@ public class InputAndAnimation : Game
     private SpriteBatch _spriteBatch;
 
     private Texture2D _background, _House;
-    private CelAnimationSequence _sequence01, _sequence02;
+    private CelAnimationSequence _walking, _sequence02;
     private CelAnimationPlayer _animation01, animation02;
 
     public InputAndAnimation()
@@ -34,18 +34,23 @@ public class InputAndAnimation : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        Texture2D spriteSheet = Content.Load<Texture2D>("walking");
+
         //setup for background image
         _background = Content.Load<Texture2D>("Pac-Man-House");
+
+        //setup for the walking sprite
+        _walking = new CelAnimationSequence(spriteSheet,105,1/6f); //sprite sheet width is 105.75
+
+        _animation01 = new CelAnimationPlayer();
+        _animation01.Play(_walking);
 
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        // TODO: Add your update logic here
+       _animation01.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -57,6 +62,7 @@ public class InputAndAnimation : Game
         _spriteBatch.Begin();
 
         _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
+        _animation01.Draw(_spriteBatch, Vector2.Zero, SpriteEffects.FlipHorizontally);
 
         _spriteBatch.End();
 
