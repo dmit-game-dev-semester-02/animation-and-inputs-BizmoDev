@@ -17,6 +17,8 @@ public class InputAndAnimation : Game
 
     private Vector2 movement;
 
+    SpriteEffects flip = SpriteEffects.None; 
+
     public InputAndAnimation()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -39,10 +41,10 @@ public class InputAndAnimation : Game
         Texture2D spriteSheet = Content.Load<Texture2D>("guy-walking");
 
         //setup for background image
-        _background = Content.Load<Texture2D>("Pac-Man-House");
+        _background = Content.Load<Texture2D>("Pac-Man-House"); //background includes black bars on top and bottom
 
         //setup for the walking sprite
-        _walking = new CelAnimationSequence(spriteSheet,(int)197.5, 1 / 4f); //sprite sheet width is 197.5
+        _walking = new CelAnimationSequence(spriteSheet,(int)182.25, 1 / 5f); //sprite sheet width is 182.25
 
         _animation01 = new CelAnimationPlayer();
         _animation01.Play(_walking);
@@ -52,17 +54,42 @@ public class InputAndAnimation : Game
     {
         //movement
         KeyboardState direction = Keyboard.GetState();
+        bool moving = false;
+        
         
         if(direction.IsKeyDown(Keys.Up)) //Move up
+        {
             movement.Y -= 5;
+            moving = true;
+        }
         if(direction.IsKeyDown(Keys.Down)) //Move Down
+        {
             movement.Y += 5;
+            moving = true;
+        }
         if(direction.IsKeyDown(Keys.Left)) //Move Left
+        {
             movement.X -= 5;
+            flip = SpriteEffects.FlipHorizontally;
+            moving = true;
+        }
         if(direction.IsKeyDown(Keys.Right)) //Move Right
+        {
             movement.X += 5;
+            flip = SpriteEffects.None;
+            moving = true;
+        }
 
-       _animation01.Update(gameTime);
+        if (moving)
+        {
+            _animation01.Update(gameTime);
+        }
+        else
+        {
+            _animation01.stop();
+            _animation01.reset();
+        }
+       
 
         base.Update(gameTime);
     }
@@ -74,7 +101,7 @@ public class InputAndAnimation : Game
         _spriteBatch.Begin();
 
         _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
-        _animation01.Draw(_spriteBatch, movement, SpriteEffects.FlipHorizontally);
+        _animation01.Draw(_spriteBatch, movement, flip);
 
         _spriteBatch.End();
 

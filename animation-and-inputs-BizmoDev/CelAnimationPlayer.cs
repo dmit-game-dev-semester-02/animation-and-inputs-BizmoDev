@@ -13,6 +13,9 @@ public class CelAnimationPlayer
     private int celIndex;
     private float celTimeElapsed;
     private Rectangle celSourceRectangle;
+    private bool playing;
+
+
 
     /// <summary>
     /// Begins or continues playback of a CelAnimationSequence.
@@ -35,6 +38,20 @@ public class CelAnimationPlayer
             celSourceRectangle.Width = this.celAnimationSequence.CelWidth;
             celSourceRectangle.Height = this.celAnimationSequence.CelHeight;
         }
+    }
+
+    public void stop()
+    {
+        playing = false;
+        celIndex = 0;
+        celTimeElapsed = 0.0f;
+    }
+    public void reset()
+    {
+        celIndex = 0;
+        celTimeElapsed  = 0.0f;
+        celSourceRectangle.X = celIndex * celSourceRectangle.Width;
+        celSourceRectangle.Y = 0;
     }
 
     /// <summary>
