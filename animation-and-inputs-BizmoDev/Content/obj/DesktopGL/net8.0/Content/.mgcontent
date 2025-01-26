@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/owenj/NAIT/Term 2/Game Programming/animation-and-inputs-BizmoDev/animation-and-inputs-BizmoDev/Content/guy-walking.png</File>
     <File>C:/Users/owenj/NAIT/Term 2/Game Programming/animation-and-inputs-BizmoDev/animation-and-inputs-BizmoDev/Content/Pac-Man-House.png</File>
-    <File>C:/Users/owenj/NAIT/Term 2/Game Programming/animation-and-inputs-BizmoDev/animation-and-inputs-BizmoDev/Content/walking.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
