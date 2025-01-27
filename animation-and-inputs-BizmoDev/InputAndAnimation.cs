@@ -19,7 +19,10 @@ public class InputAndAnimation : Game
 
     private Vector2 movement;
 
-    SpriteEffects flip = SpriteEffects.None; 
+    private Vector2 coinPosition = new Vector2(300, 200);
+    private bool coinMovingRight = true;
+
+    SpriteEffects flip, coinFlip = SpriteEffects.None; 
 
     public InputAndAnimation()
     {
@@ -99,12 +102,28 @@ public class InputAndAnimation : Game
         if (moving)
         {
             _animation01.Update(gameTime);
-            
         }
         else
         {
             _animation01.stop();
             _animation01.reset();
+        }
+
+        if (direction.IsKeyDown(Keys.Space))
+        {
+            if(coinMovingRight)
+            {
+                coinPosition.X += 5;
+                if (coinPosition.X >= _WindowWidth - _coin.CelWidth)
+                    coinMovingRight = false;
+            }
+            else
+            {
+                coinPosition.X -= 5;
+                if (coinPosition.X <= -50)
+                    coinMovingRight = true;
+                    coinFlip = SpriteEffects.FlipHorizontally;
+            }
         }
        
         _animation02.Update(gameTime);
@@ -117,10 +136,10 @@ public class InputAndAnimation : Game
 
         _spriteBatch.Begin();
 
-        _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
-        _spriteBatch.Draw(_tree, new Vector2(250,0), Color.White);
-        _animation02.Draw(_spriteBatch, new Vector2(100, 100), SpriteEffects.None);
-        _animation01.Draw(_spriteBatch, movement, flip);
+        _spriteBatch.Draw(_background, Vector2.Zero, Color.White); //background
+        _spriteBatch.Draw(_tree, new Vector2(250,0), Color.White); //tree
+        _animation02.Draw(_spriteBatch, coinPosition, coinFlip); //coin          
+        _animation01.Draw(_spriteBatch, movement, flip); //guy
 
         _spriteBatch.End();
 
